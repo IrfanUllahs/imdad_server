@@ -75,7 +75,7 @@ router.delete("/delete/:id", authenticate, authorize('admin'), async (req, res) 
 });
 
 // Get today's received payments grouped by bankName (Accessible to admin and manager)
-router.get("/today", async (req, res) => {
+router.get("/today", authenticate, authorize('admin', 'manager'), async (req, res) => {
   try {
     const today = moment().startOf("day");
     const endOfDay = moment().endOf("day");
@@ -100,7 +100,7 @@ router.get("/today", async (req, res) => {
 });
 
 // Get this month's received payments grouped by bankName (Accessible to admin and manager)
-router.get("/monthly", async (req, res) => {
+router.get("/monthly", authenticate, authorize('admin', 'manager'), async (req, res) => {
   try {
     const startOfMonth = moment().startOf("month").startOf("day");
     const endOfMonth = moment().endOf("month").endOf("day");
@@ -125,7 +125,7 @@ router.get("/monthly", async (req, res) => {
 });
 
 // Get total received payments for the year (Accessible to admin and manager)
-router.get("/total-yearly",  async (req, res) => {
+router.get("/total-yearly", authenticate, authorize('admin', 'manager'), async (req, res) => {
   try {
     const startOfYear = moment().startOf("year").startOf("day");
     const endOfYear = moment().endOf("year").endOf("day");
