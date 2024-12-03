@@ -3,14 +3,7 @@ const Freight = require("../models/Freight");
 const router = express.Router();
 const {authenticate, authorize} = require("../middleware/auth")
 
-// Function to format a date into DD/MM/YYYY format
-const formatDate = (date) => {
-  const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, "0");
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const year = d.getFullYear();
-  return `${day}/${month}/${year}`;
-};
+
 
 // Get all freight details
 router.get("/", authenticate, authorize("admin", "manager"), async (req, res) => {
@@ -58,12 +51,12 @@ router.post("/", authenticate, authorize("admin", "manager"), async (req, res) =
 });
 
 // Update a freight detail
-router.put("/:id", authenticate, authorize("admin"), async (req, res) => {
+router.put("/update/:id", authenticate, authorize("admin"), async (req, res) => {
   const { departureDate, arrivalDate, ...rest } = req.body;
 
   // Format the date fields before updating
-  const formattedDepartureDate = formatDate(departureDate);
-  const formattedArrivalDate = formatDate(arrivalDate);
+  const formattedDepartureDate = departureDate;
+  const formattedArrivalDate = arrivalDate;
 
   try {
     const freight = await Freight.findByIdAndUpdate(
