@@ -60,7 +60,7 @@ router.get('/', authenticate, authorize("admin", "manager"), async (req, res) =>
     // Populate customer and product details in the transaction
     const transactions = await Transaction.find()
       .populate('customer', 'name') // Populate customer name
-      .populate('product', 'name'); // Populate product name
+      .populate('product', 'name companyName size'); // Populate product name
 
     res.json(transactions);
   } catch (err) {
@@ -74,7 +74,7 @@ router.get('/:id', authenticate, authorize("admin", "manager"), async (req, res)
     // Populate customer and product details in the transaction
     const transactions = await Transaction.find({
       customer:id
-    })
+    }).populate('product', 'name companyName size');
       if(!transactions){
        return  res.status(404).json({message:"no transactions found!"})
       }

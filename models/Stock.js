@@ -5,13 +5,18 @@ const ProductsSchema = new mongoose.Schema({
     type: String, 
     required: true
    },
+   companyName:{
+    type: String,
+    required:false
+
+   },
   purchasePrice: { 
     type: Number, 
     required: true
    }, // Purchase price of the product
   salePrice: { 
     type: Number, 
-    required: true 
+    required: false 
   }, // Sale price of the product
   size: {
     type:String

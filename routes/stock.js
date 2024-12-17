@@ -33,10 +33,10 @@ router.get('/stocks/:id', authenticate, authorize("admin", "manager"), async (re
 
 // Create a new stock entry
 router.post('/stocks', authenticate, authorize("admin", "manager"), async (req, res) => {
-  const { name, purchasePrice, salePrice, size, weight, quantity } = req.body;
+  const { name,companyName, purchasePrice, salePrice, size, weight, quantity } = req.body;
 
   // Calculate initial profit (which will be 0 as no items are sold initially)
-  const stock = new Stock({ name, purchasePrice, salePrice,size, weight, quantity });
+  const stock = new Stock({ name, companyName, purchasePrice, salePrice,size, weight, quantity });
 
   try {
     const newStock = await stock.save();
